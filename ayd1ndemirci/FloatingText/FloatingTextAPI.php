@@ -12,7 +12,7 @@ class FloatingTextAPI
     public static function create(Position $position, string $text, string $tag): void
     {
         $floatingText = new FloatingTextParticle($text);
-        if (in_array($tag, self::$floatingText)) {
+        if (array_key_exists($tag, self::$floatingText)) {
             self::remove($tag);
         }
         self::$floatingText[$tag] = [$position, $floatingText];
@@ -21,7 +21,7 @@ class FloatingTextAPI
 
     public static function remove(string $tag): void
     {
-        if (!in_array($tag, self::$floatingText)) {
+        if (!array_key_exists($tag, self::$floatingText)) {
             return;
         }
         $floatingText = self::$floatingText[$tag][1];
@@ -33,7 +33,7 @@ class FloatingTextAPI
 
     public static function update(string $tag, string $text): void
     {
-        if (!in_array($tag, self::$floatingText)) {
+        if (!array_key_exists($tag, self::$floatingText)) {
             return;
         }
         $floatingText = self::$floatingText[$tag][1];
